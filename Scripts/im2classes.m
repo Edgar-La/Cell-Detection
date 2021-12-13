@@ -1,4 +1,4 @@
-function [Im_classes, n_class1, n_class2, n_class3] = im2classes(Im_cell_seg, Im_drug_seg)
+function [Im_classes, n_class1, n_class2, n_class3, labels] = im2classes(Im_cell_seg, Im_drug_seg)
 %(EN)This function goes through each cell, and verifies what percentage of
 %drug each cell has. After that, with a decision condition, the class is assigned.
 %(ES)Esta funcion recorre c/u de las celulas, y verifica qué porcentaje de
@@ -14,6 +14,7 @@ function [Im_classes, n_class1, n_class2, n_class3] = im2classes(Im_cell_seg, Im
 %las clases
 n_celula_aux = zeros(1024,1024);
 contador_clase_1 = 0; contador_clase_2 = 0; contador_clase_3 = 0;
+matriz_etiquetas = zeros(n,2);
 for k =1:n
     %Obtenemos la n-esima celula
     n_celula = (L==k);
@@ -28,15 +29,17 @@ for k =1:n
     if (Porcentaje_farmaco >= 0) && (Porcentaje_farmaco < 10)
         n_celula = n_celula*1;
         contador_clase_1 = contador_clase_1 + 1;
+        matriz_etiquetas(k,1) = k; matriz_etiquetas(k,2) = 10000+contador_clase_1;
     elseif (Porcentaje_farmaco >= 10) && (Porcentaje_farmaco < 45)
         n_celula = n_celula*2;
         contador_clase_2 = contador_clase_2 + 1;
+        matriz_etiquetas(k,1) = k; matriz_etiquetas(k,2) = 20000+contador_clase_2;
     else
         n_celula = n_celula*3;
         contador_clase_3 = contador_clase_3 + 1;
+        matriz_etiquetas(k,1) = k; matriz_etiquetas(k,2) = 30000+contador_clase_3;
     end
-    %Se construye la imagen agregando celula por celula con su clase
-    %correspondiente
+    %Se construye la imagen agregando celula por celula con su clase correspondiente
     n_celula_aux = imadd(n_celula_aux, n_celula);
 end
 
@@ -46,5 +49,6 @@ Im_classes = n_celula_aux;
 n_class1 = contador_clase_1;
 n_class2 = contador_clase_2;
 n_class3 = contador_clase_3;
+labels = matriz_etiquetas;
 end
 

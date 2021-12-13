@@ -35,7 +35,7 @@ figure(); imshowpair(Im_63x18_B, Im_63x18_B_seg, 'montage'); title('Im 63x 18 B 
 Im_63x18_G_seg = im2seg_63x_G(Im_63x18_G, 0);
 figure(); imshowpair(Im_63x18_G, Im_63x18_G_seg, 'montage'); title('Im 63x 18 G - Compara original con segmentada');
 %Llamamos a la funcion que se construyo para asignar las clases
-[Im_63x18_CLASSES, Im_63x18_n_class1, Im_63x18_n_class2, Im_63x18_n_class3] = im2classes(Im_63x18_B_seg, Im_63x18_G_seg);
+[Im_63x18_CLASSES, Im_63x18_n_class1, Im_63x18_n_class2, Im_63x18_n_class3, etiquetas] = im2classes(Im_63x18_B_seg, Im_63x18_G_seg);
 %Mostramos la compracion de 'celulas-farmaco' con 'clases asignadas'
 figure(); imshowpair(Im_63x18, Im_63x18_CLASSES, 'montage'); title('Clases aisgnadas');
 %#####################################################################################################
