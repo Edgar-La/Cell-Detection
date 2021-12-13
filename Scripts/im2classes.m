@@ -1,4 +1,4 @@
-function [Im_classes, n_class1, n_class2, n_class3, labels] = im2classes(Im_cell_seg, Im_drug_seg)
+function [Im_classes, n_labels_per_class, labels] = im2classes(Im_cell_seg, Im_drug_seg)
 %(EN)This function goes through each cell, and verifies what percentage of
 %drug each cell has. After that, with a decision condition, the class is assigned.
 %(ES)Esta funcion recorre c/u de las celulas, y verifica qué porcentaje de
@@ -46,9 +46,7 @@ end
 
 %La funcion retorna la imagen de clases y la cantidad de celulas de c/clase
 Im_classes = n_celula_aux;
-n_class1 = contador_clase_1;
-n_class2 = contador_clase_2;
-n_class3 = contador_clase_3;
+n_labels_per_class = [1, contador_clase_1; 2, contador_clase_2; 3, contador_clase_3];
 labels = matriz_etiquetas;
 end
 
